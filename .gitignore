@@ -2,5 +2,5 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/WeaveLogic/.vs/WeaveLogic/v17/.suo
-/WeaveLogic/.vs/WeaveLogic/config/applicationhost.config
+/WeaveLogic/.vs
+
