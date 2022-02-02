@@ -39,13 +39,13 @@ select {
 
 #contents {
     margin: auto;
-    width: 960px;
+    width: 1140px;
 }
 
 #eq_frame {
     float: left;
     padding: 5px 0px;
-    width: 960px;
+    width: 1140px;
 }
 
 #sets {
@@ -81,7 +81,7 @@ select {
 .prac_frame {
     float: left;
     padding: 5px 0px;
-    width: 320px;
+    width: 380px;
 }
 
 .norm {

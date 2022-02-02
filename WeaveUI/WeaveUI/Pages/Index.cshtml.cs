@@ -33,6 +33,7 @@ namespace WeaveUI.Pages
 
         public WeavesObject? weavesObject = new WeavesObject();
         public string commands;
+        public string error;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -46,14 +47,21 @@ namespace WeaveUI.Pages
             {
                 var result = _httpClient.GetAsync(new Uri("https://weavepracs.azurewebsites.net/api/GetPracs" + Request.QueryString.Value)).Result;
                 string jsonString = result.Content.ReadAsStringAsync().Result;
-                weavesObject = JsonSerializer.Deserialize<WeavesObject>(jsonString, new JsonSerializerOptions
+                if (result.IsSuccessStatusCode)
                 {
-                    PropertyNameCaseInsensitive = true,
-                    IncludeFields = true,
-                });
-                if (weavesObject != null)
+                    error = "";
+                    weavesObject = JsonSerializer.Deserialize<WeavesObject>(jsonString, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        IncludeFields = true,
+                    });
+                    if (weavesObject != null)
+                    {
+                        commands = string.Join(Environment.NewLine, weavesObject.commands);
+                    }
+                } else
                 {
-                    commands = string.Join(Environment.NewLine, weavesObject.commands);
+                    error = jsonString;
                 }
             }
         }
@@ -70,7 +78,7 @@ namespace WeaveUI.Pages
             List<string> elementList = new();
             foreach (var kvPair in requestElements)
             {
-                if (int.TryParse(kvPair.Value, out int percentage) && percentage >= 0)
+                if (int.TryParse(kvPair.Value, out int percentage) && percentage > 0)
                     elementList.Add(kvPair.Key + "=" + kvPair.Value);
             }
             var queryString = "?" + string.Join("&", elementList);
