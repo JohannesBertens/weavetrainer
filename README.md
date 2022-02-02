@@ -5,3 +5,4 @@ Todo:
 - ~~Create backend~~
 - Create frontend
 - Make permalinks work (save/load)
+- Fix residuals
