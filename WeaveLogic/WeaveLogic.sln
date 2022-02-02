@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaveLogic", "WeaveLogic\WeaveLogic.csproj", "{A7C030EB-E748-43C1-AB6C-C68F6958FAFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7C030EB-E748-43C1-AB6C-C68F6958FAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C030EB-E748-43C1-AB6C-C68F6958FAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C030EB-E748-43C1-AB6C-C68F6958FAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C030EB-E748-43C1-AB6C-C68F6958FAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F6AE78D-8941-4AD2-9950-295DF059EE84}
+	EndGlobalSection
+EndGlobal
