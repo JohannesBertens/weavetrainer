@@ -31,7 +31,7 @@ jobs:
         working-directory: ${{env.working-directory}}
         shell: pwsh
         run: |
-          dotnet build --configuration Release --output ./${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
+          dotnet build --configuration Release --output ../output
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
