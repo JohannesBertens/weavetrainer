@@ -1,0 +1,349 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div id="contents">
+      <form name="table_form" method="post">
+        <div class="prac_frame">
+          <table cellpadding="0" cellspacing="0" width="320px">
+            <tr class="wild">
+              <td>Armor (2S)</td>
+              <td class="buttons">
+                <input name="armor" size="2" value="@Request.Query["armor"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Blind (1E, 1F, 1S)</td>
+              <td class="buttons">
+                <input name="blind" size="2" value="@Request.Query["blind"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Call Lightning (3A, 1F, 2W)</td>
+              <td class="buttons">
+                <input name="call lightning" size="2" value="@Request.Query["call lightning"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Change Weather (2A, 3W)</td>
+              <td class="buttons">
+                <input name="change weather" size="2" value="@Request.Query["change weather"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Chill (1W)</td>
+              <td class="buttons">
+                <input name="chill" size="2" value="@Request.Query["chill"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Contagion (4E, 3S)</td>
+              <td class="buttons">
+                <input name="contagion" size="2" value="@Request.Query["contagion"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Create Fog (2A, 3W)</td>
+              <td class="buttons">
+                <input name="create fog" size="2" value="@Request.Query["create fog"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Create Food (1E)</td>
+              <td class="buttons">
+                <input name="create food" size="2" value="@Request.Query["create food"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Create Phantom Object (3E)</td>
+              <td class="buttons">
+                <input name="create phantom object" size="2" value="@Request.Query["create phantom object"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Create Water (1W)</td>
+              <td class="buttons">
+                <input name="create water" size="2" value="@Request.Query["create water"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Cure Blindness (1F, 3S)</td>
+              <td class="buttons">
+                <input name="cure blindness" size="2" value="@Request.Query["cure blindness"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Cure Critical Wounds (1E, 5W, 2S)</td>
+              <td class="buttons">
+                <input name="cure critical wounds" size="2" value="@Request.Query["cure critical wounds"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Cure Fear (4S)</td>
+              <td class="buttons">
+                <input name="cure fear" size="2" value="@Request.Query["cure fear"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Cure Light Wounds (1E, 1W, 2S)</td>
+              <td class="buttons">
+                <input name="cure light wounds" size="2" value="@Request.Query["cure light wounds"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Cure Poison (4E, 3W)</td>
+              <td class="buttons">
+                <input name="cure poison" size="2" value="@Request.Query["cure poison"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Cure Serious Wounds (1E, 4W 2S)</td>
+              <td class="buttons">
+                <input name="cure serious wounds" size="2" value="@Request.Query["cure serious wounds"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Deafen (2E, 1S)</td>
+              <td class="buttons">
+                <input name="deafen" size="2" value="@Request.Query["deafen"]">%
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="prac_frame">
+          <table cellpadding="0" cellspacing="0" width="320px">
+            <tr class="wild">
+              <td>Earthquake (4E)</td>
+              <td class="buttons">
+                <input name="earthquake" size="2" value="@Request.Query["earthquake"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Elemental Staff (4A, 3F, 5W)</td>
+              <td class="buttons">
+                <input name="elemental staff" size="2" value="@Request.Query["elemental staff"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Fear (2S)</td>
+              <td class="buttons">
+                <input name="fear" size="2" value="@Request.Query["fear"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Fireball (7F)</td>
+              <td class="buttons">
+                <input name="fireball" size="2" value="@Request.Query["fireball"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Flame Strike (4F)</td>
+              <td class="buttons">
+                <input name="flame strike" size="2" value="@Request.Query["flame strike"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Freeze (3A, 5S)</td>
+              <td class="buttons">
+                <input name="freeze" size="2" value="@Request.Query["freeze"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Gate (7E, 4S)</td>
+              <td class="buttons">
+                <input name="gate" size="2" value="@Request.Query["gate"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Hailstorm (1A, 4W)</td>
+              <td class="buttons">
+                <input name="hailstorm" size="2" value="@Request.Query["hailstorm"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Hammer of Air (4A)</td>
+              <td class="buttons">
+                <input name="hammer of air" size="2" value="@Request.Query["hammer of air"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Heal (1E, 6W, 2S)</td>
+              <td class="buttons">
+                <input name="heal" size="2" value="@Request.Query["heal"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Hurricane (6A)</td>
+              <td class="buttons">
+                <input name="hurricane" size="2" value="@Request.Query["hurricane"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Ice Spikes (3A, 3W)</td>
+              <td class="buttons">
+                <input name="ice spikes" size="2" value="@Request.Query["ice spikes"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Incinerate (7E, 7F, 7S)</td>
+              <td class="buttons">
+                <input name="incinerate" size="2" value="@Request.Query["incinerate"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Light Ball (1A, 1F)</td>
+              <td class="buttons">
+                <input name="light ball" size="2" value="@Request.Query["light ball"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Locate Life (2E, 2A, 4W, 2S)</td>
+              <td class="buttons">
+                <input name="locate life" size="2" value="@Request.Query["locate life"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Locate Object (4E, 2A, 2S)</td>
+              <td class="buttons">
+                <input name="locate object" size="2" value="@Request.Query["locate object"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Poison (4E, 3W)</td>
+              <td class="buttons">
+                <input name="poison" size="2" value="@Request.Query["poison"]">%
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="prac_frame">
+          <table cellpadding="0" cellspacing="0" width="320px">
+            <tr class="wild">
+              <td>Refresh (2E, 2W, 3S)</td>
+              <td class="buttons">
+                <input name="refresh" size="2" value="@Request.Query["refresh"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Remove Contagion (2E, 2S)</td>
+              <td class="buttons">
+                <input name="remove contagion" size="2" value="@Request.Query["remove contagion"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Remove Warding (1E, 1A, 3S)</td>
+              <td class="buttons">
+                <input name="remove warding" size="2" value="@Request.Query["remove warding"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Sense Warding (2S)</td>
+              <td class="buttons">
+                <input name="sense warding" size="2" value="@Request.Query["sense warding"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Shield (5S)</td>
+              <td class="buttons">
+                <input name="shield" size="2" value="@Request.Query["shield"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Silence (2E, 1S)</td>
+              <td class="buttons">
+                <input name="silence" size="2" value="@Request.Query["silence"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Sleep (3A, 5S)</td>
+              <td class="buttons">
+                <input name="sleep" size="2" value="@Request.Query["sleep"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Slice Weaves (4F, 4S)</td>
+              <td class="buttons">
+                <input name="slice weaves" size="2" value="@Request.Query["slice weaves"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Slow (3A, 5S)</td>
+              <td class="buttons">
+                <input name="slow" size="2" value="@Request.Query["slow"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Sonic Boom (3A, 1F, 2W)</td>
+              <td class="buttons">
+                <input name="sonic boom" size="2" value="@Request.Query["sonic boom"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Strength (3E, 3W, 2S)</td>
+              <td class="buttons">
+                <input name="strength" size="2" value="@Request.Query["strength"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Sword of Flame (3E, 4A, 5F)</td>
+              <td class="buttons">
+                <input name="sword of flame" size="2" value="@Request.Query["sword of flame"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Travel (7E, 2S)</td>
+              <td class="buttons">
+                <input name="travel" size="2" value="@Request.Query["travel"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Ward Object (3S)</td>
+              <td class="buttons">
+                <input name="ward object" size="2" value="@Request.Query["ward object"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Warding vs Damage (4E, 4A, 4W)</td>
+              <td class="buttons">
+                <input name="warding vs damage" size="2" value="@Request.Query["warding vs damage"]">%
+              </td>
+            </tr>
+            <tr class="wild">
+              <td>Warding vs Evil (1S)</td>
+              <td class="buttons">
+                <input name="warding vs evil" size="2" value="@Request.Query["warding vs evil"]">%
+              </td>
+            </tr>
+            <tr class="clan">
+              <td>Whirlpool (5W)</td>
+              <td class="buttons">
+                <input name="whirlpool" size="2" value="@Request.Query["whirlpool"]">%
+              </td>
+            </tr>
+          </table>
+        </div>
+      <div>
+        Int:
+        <input id="int" name="int" size="2" value=@Request.Query["int"]>
+        Rank:
+        <input id="rank" name="rank" size="2" value=@Request.Query["rank"]>
+      </div>
+      <div>
+          <button type="submit">Calculate</button>
+      </div>
+      </form>
+      <div class="output">
+          Debug info: 
+          <pre>
+              Level required: @Model.weavesObject?.levelRequired
+              Practices used: @Model.weavesObject?.totalPracs
+              @string.Join(";", @Model.weavesObject?.elements)
+        </pre>
+          Commands: <textarea id="commands">@Model.commands</textarea>
+      </div>
+    <div id="info">
+        <p><b>Legend:</b> Dark Gray = unclanned weaves, Light Gray = clanned weaves.</p>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+table {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75em;
+    padding: 5px 5px;
+}
+
+td {
+    padding: 3px;
+}
+
+input {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.75em;
+}
+
+select {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.85em;
+}
+
+#contents {
+    margin: auto;
+    width: 960px;
+}
+
+#eq_frame {
+    float: left;
+    padding: 5px 0px;
+    width: 960px;
+}
+
+#sets {
+    text-align: right;
+}
+
+.status {
+    text-align: right;
+    padding: 1px;
+}
+
+.regen {
+    text-align: right;
+}
+
+.even {
+    background-color: #c0c0c0;
+}
+
+.odd {
+    background-color: #e0e0e0;
+}
+
+.slot {
+    text-align: right;
+}
+
+.button_float {
+    float: right;
+    padding: 2px 2px;
+}
+
+.prac_frame {
+    float: left;
+    padding: 5px 0px;
+    width: 320px;
+}
+
+.norm {
+    background-color: #c0c0c0;
+}
+
+.fast {
+    background-color: #e0e0e0;
+}
+
+.wild {
+    background-color: #c0c0c0;
+}
+
+.clan {
+    background-color: #e0e0e0;
+}
+
+.buttons {
+    text-align: right;
+}
+
+.output {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.85em;
+    padding: 5px;
+    text-align: center;
+}
+
+#info {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    text-align: center;
+}
