@@ -7,4 +7,5 @@ Todo:
 - ~~Make permalinks work (save/load)~~ CHECK!
 - Optimize Weaves
 - Fix residuals
+- Make the call to backend async (no reload)
 
