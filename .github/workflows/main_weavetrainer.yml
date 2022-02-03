@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      working-directory: ./WeaveUI
 
     steps:
       - uses: actions/checkout@v2
@@ -23,12 +25,15 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
+        working-directory: ${{env.working-directory}}
         run: dotnet build --configuration Release
 
       - name: dotnet publish
+        working-directory: ${{env.working-directory}}
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
+        working-directory: ${{env.working-directory}}
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
