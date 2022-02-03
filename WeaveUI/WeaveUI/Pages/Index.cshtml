@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Free Open Source Weave Trainer";
 }
 
 <div id="contents">
@@ -304,7 +304,7 @@
               <td width="60px" style="color:darkblue; font-size:x-small">@Model.weavesObject?.weavesDebug.FirstOrDefault(w => w.weave == "sleep")?.percentage% (@Model.weavesObject?.weavesDebug.FirstOrDefault(w => w.weave == "sleep")?.pracsNeeded)</td>
             </tr>
             <tr class="clan">
-              <td>Slice Weaves (4F, 4S)</td>
+              <td>Slice Weaves (1E, 1A, 4F, 2S)</td>
               <td class="buttons">
                 <input name="slice weaves" size="2" value="@Request.Query["slice weaves"]">%
               </td>
