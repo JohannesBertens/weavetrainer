@@ -56,8 +56,11 @@ namespace WeaveLogic
                     return new BadRequestObjectResult($"Error on {key} parameter, percentage needs to be a number between 0 and 100, is {percentage}");
                 }
 
-                praccedWeaves.Add(new Weave(key, intelligence, rank, percentage, elementalReqs.Earth, elementalReqs.Air, elementalReqs.Fire, elementalReqs.Water, elementalReqs.Spirit));
+                praccedWeaves.Add(new Weave(key, intelligence, rank, percentage));
             }
+
+            // OK, weaves set. Now to do some voodoo.
+            List<Weave> orderedWeaves = GetWeaveOrder(elementalReqs, praccedWeaves);
 
             var returnObject = new ReturnObject() { weavesDebug = praccedWeaves };
             returnObject.intelligence = intelligence;
@@ -68,9 +71,78 @@ namespace WeaveLogic
             returnObject.totalPracs = returnObject.elementPracs + returnObject.weavePracs;
             returnObject.levelRequired = GetLevelRequired(returnObject.totalPracs);
             returnObject.commands.AddRange(elementalReqs.GetElementalCommands());
-            foreach (var weave in praccedWeaves) returnObject.commands.AddRange(weave.GetCommands());
+            //foreach (var weave in praccedWeaves) returnObject.commands.AddRange(weave.GetCommands());
 
             return new OkObjectResult(JsonConvert.SerializeObject(returnObject));
+        }
+
+        private static void RotateRight(List<Weave> sequence, int count)
+        {
+            Weave tmp = sequence[count - 1];
+            sequence.RemoveAt(count - 1);
+            sequence.Insert(0, tmp);
+        }
+
+        private static IEnumerable<List<Weave>> Permutate(List<Weave> sequence, int count)
+        {
+            if (count == 1) yield return sequence;
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    foreach (var perm in Permutate(sequence, count - 1))
+                        yield return perm;
+                    RotateRight(sequence, count);
+                }
+            }
+        }
+
+        private static List<Weave> GetWeaveOrder(ElementalRequirements elementalReqs, List<Weave> praccedWeaves)
+        {
+            Dictionary<int, List<Weave>> CostPerList = new();
+
+            foreach (var permutation in Permutate(praccedWeaves, praccedWeaves.Count))
+            {
+                foreach (var weave in permutation)
+                {
+                    Console.Write(weave.weave + " ");
+                }
+                int cost = DetermineTotalPracCost(permutation);
+                if (!CostPerList.ContainsKey(cost))
+                    CostPerList.Add(cost, permutation);
+                Console.WriteLine();
+            }
+
+            return CostPerList.First().Value;
+        }
+
+        private static int DetermineTotalPracCost(List<Weave> weaves)
+        {
+            int earth = 0;
+            int air = 0;
+            int fire = 0;
+            int water = 0;
+            int spirit = 0;
+
+            int pracs = 0;
+
+            foreach (var weave in weaves)
+            {
+                // Cheating it. This can be fixed by math as well I think.
+                for (int i = earth; i < WeaveInfo[weave.weave].Earth; i++) { pracs += (i+1) * 2; earth++; }
+                for (int i = air; i < WeaveInfo[weave.weave].Air; i++) { pracs += (i + 1) * 2; air++; }
+                for (int i = fire; i < WeaveInfo[weave.weave].Fire; i++) { pracs += (i + 1) * 2; fire++; }
+                for (int i = water; i < WeaveInfo[weave.weave].Water; i++) { pracs += (i + 1) * 2; water++; }
+                for (int i = spirit; i < WeaveInfo[weave.weave].Spirit; i++) { pracs += (i + 1) * 2; spirit++; }
+
+                while (weave.currentPercentage < weave.percentageToGet)
+                {
+                    weave.AddOne(earth, air, fire, water, spirit);
+                    pracs++;
+                }
+            }
+            
+            return pracs;
         }
 
         private class ReturnObject
@@ -86,7 +158,7 @@ namespace WeaveLogic
             public List<Weave> weavesDebug = new();
         }
 
-        private static int GetRate(int intelligence, int currentPercentage)
+        private static int GetRate(int intelligence, int currentPercentage, int rank, int bonus, int difficulty)
         {
             int increase = 0;
 
@@ -189,11 +261,40 @@ namespace WeaveLogic
                 increase = 1;
             }
 
+            if (difficulty == 0)
+            {
+                increase = (int)Math.Floor(0.85 * (double)increase);
+            }
+            else if (difficulty == 2)
+            {
+                increase = (int)Math.Floor((double)increase * 1.5);
+            }
+            if (increase == 0) increase = 1;
+
+            increase = (int)(increase + Math.Floor(0.04 * (double)bonus * increase));
+            increase = (int)(increase + Math.Floor(0.04 * (double)rank * increase));
+
             return increase;
         }
 
         private class Weave
         {
+            public string weave;
+            public int percentageToGet;
+            public int pracsNeeded;
+            public int currentPercentage;
+            
+            private int intelligence;
+            private int rank;
+
+            public Weave(string weave, int intelligence, int rank, int percentageToGet)
+            {
+                this.weave = weave;
+                this.percentageToGet = percentageToGet;
+                this.intelligence = intelligence;
+                this.rank = rank;
+            }
+
             private int CalculateBonus(int earth, int air, int fire, int water, int spirit)
             {
                 int bonus = 0;
@@ -207,42 +308,12 @@ namespace WeaveLogic
                 return bonus;
             }
 
-            public Weave(string weave, int intelligence, int rank, int percentage, int earth, int air, int fire, int water, int spirit)
+            public void AddOne(int earth, int air, int fire, int water, int spirit)
             {
-                this.weave = weave;
-                this.percentage = percentage;
+                int bonus = CalculateBonus(earth, air, fire, water, spirit);
+                int increase = GetRate(intelligence, currentPercentage, bonus, this.rank, WeaveInfo[weave].difficulty);
 
-                int practiced = 0;
-                while (practiced < percentage)
-                {
-                    this.pracsNeeded++;
-                    int bonus = CalculateBonus(earth, air, fire, water, spirit);
-                    int increase = GetRate(intelligence, practiced);
-                    if (WeaveInfo[weave].difficulty == 0)
-                    {
-                        increase = (int)Math.Floor(0.85 * (double)increase);
-                    }
-                    else if (WeaveInfo[weave].difficulty == 2)
-                    {
-                        increase = (int)Math.Floor((double)increase * 1.5);
-                    }
-                    if (increase == 0) increase = 1;
-                    increase = (int)(increase + Math.Floor(0.04 * (double)bonus * increase));
-                    increase = (int)(increase + Math.Floor(0.04 * (double)rank * increase));
-                    practiced += increase;
-                }
-
-                this.percentage = practiced;
-            }
-            public string weave;
-            public int percentage;
-            public int pracsNeeded;
-
-            public IEnumerable<string> GetCommands()
-            {
-                List<string> commands = new();
-                for (int i = 0; i < pracsNeeded; i++) commands.Add($"practice {weave}");
-                return commands;
+                this.currentPercentage += increase;
             }
         }
 
