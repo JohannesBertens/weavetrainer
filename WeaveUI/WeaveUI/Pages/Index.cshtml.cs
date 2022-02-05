@@ -44,31 +44,40 @@ namespace WeaveUI.Pages
 
         public void OnGet()
         {
-
-            if (!string.IsNullOrEmpty(Request.QueryString.Value))
+            if (string.IsNullOrEmpty(Request.QueryString.Value))
             {
-                // set int & rank
-                intelligence = Request.Query["int"];
-                rank = Request.Query["rank"];
+                return;
+            }
 
-                var result = _httpClient.GetAsync(new Uri("https://weavepracs.azurewebsites.net/api/GetPracs" + Request.QueryString.Value)).Result;
-                string jsonString = result.Content.ReadAsStringAsync().Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    error = "";
-                    weavesObject = JsonSerializer.Deserialize<WeavesObject>(jsonString, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true,
-                        IncludeFields = true,
-                    });
-                    if (weavesObject != null)
-                    {
-                        commands = string.Join(Environment.NewLine, weavesObject.commands);
-                    }
-                } else
-                {
-                    error = jsonString;
-                }
+            // Rewrite URL from the OTHER tool
+            if (Request.Query.ContainsKey("intl") || Request.QueryString.Value.Contains("_"))
+            {
+                Response.Redirect(Request.QueryString.Value.Replace("intl", "int").Replace("_", " "));
+                return;
+            }
+
+            // set int & rank
+            intelligence = Request.Query["int"];
+            rank = Request.Query["rank"];
+
+            var result = _httpClient.GetAsync(new Uri("https://weavepracs.azurewebsites.net/api/GetPracs" + Request.QueryString.Value)).Result;
+            string jsonString = result.Content.ReadAsStringAsync().Result;
+            if (!result.IsSuccessStatusCode)
+            {
+                error = jsonString;
+                return;
+            }
+            
+
+            error = "";
+            weavesObject = JsonSerializer.Deserialize<WeavesObject>(jsonString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+            });
+            if (weavesObject != null)
+            {
+                commands = string.Join(Environment.NewLine, weavesObject.commands);
             }
         }
 
